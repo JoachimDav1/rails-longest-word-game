@@ -1,0 +1,31 @@
+
+<% letters = params[:letters].chars %>  
+<% guess = params[:guess].upcase.chars %> 
+
+
+<% 
+def array_checker(array1,array2)
+  (array2 - array1).empty?
+end
+%>
+
+<% def correct_word(arr) 
+  word = arr.join
+  url = "https://dictionary.lewagon.com/#{word}"
+  html_file = URI.open(url)
+  doc = Nokogiri::HTML.parse(html_file)
+  p_element = doc.at_css('p').text.strip
+end
+%>
+
+<% if array_checker(letters,guess) == false %>
+  <p> "Sorry,  <%=guess.join %> cannot be build with <%= letters.join %>"</p>
+<% elsif correct_word(guess).include?("true")  %>
+  <p> Congrats you scored <%=guess.length %> points</p>
+
+<% else  %>
+  <p>Unfortunately <b><%=guess.join%></b> is not a valid English word </p>
+<% end %>
+
+<%= link_to "NEW GAME", "new", class: "btn btn-primary"%>
+

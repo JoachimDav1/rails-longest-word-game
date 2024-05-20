@@ -1,0 +1,21 @@
+<h1> <%= "NEW GAME" %></h1>
+
+<div class="d-flex ">
+  <% @game_letters.each do |letter| %>
+    <div class="">
+      <p class="bg-primary p-4 text-white fw-bold text-center m-4 "> <%= letter %> </p>
+    </div>
+  <% end %>
+</div>
+
+<br>
+<br>  
+
+<h2>With those letters, what is the longest word You can think of ?</h2>
+
+<form action="/score" method="post" data-turbo="false" class="form-group">
+  <input class= "form-control  mb-2 mx-3" type="text" name="guess" placeholder="Type the longest word you can think of..">
+  <input class="btn btn-primary mt-2 mx-3" type="submit" value="Play">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :letters, @game_letters%>
+</form>
